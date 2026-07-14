@@ -1,6 +1,7 @@
 package com.example.securityApp.securityApplicationo.filter;
 
 import com.example.securityApp.securityApplicationo.entities.User;
+import com.example.securityApp.securityApplicationo.handlers.OAuth2SuccessHandler;
 import com.example.securityApp.securityApplicationo.service.JwtService;
 import com.example.securityApp.securityApplicationo.service.UserService;
 import jakarta.servlet.FilterChain;
