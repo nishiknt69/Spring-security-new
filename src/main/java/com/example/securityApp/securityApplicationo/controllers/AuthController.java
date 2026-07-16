@@ -4,21 +4,21 @@ import com.example.securityApp.securityApplicationo.dto.LoginDTO;
 import com.example.securityApp.securityApplicationo.dto.LoginResponseDTO;
 import com.example.securityApp.securityApplicationo.dto.SignUpDTO;
 import com.example.securityApp.securityApplicationo.dto.UserDTO;
+import com.example.securityApp.securityApplicationo.entities.User;
 import com.example.securityApp.securityApplicationo.service.AuthService;
 import com.example.securityApp.securityApplicationo.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,6 +27,16 @@ public class AuthController {
 
     private final UserService userService;
     private final AuthService authService;
+    private final ModelMapper modelMapper;
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> allUsers = userService.getAllUsers();
+//        List<UserDTO> users = allUsers.stream()
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .toList();
+        return ResponseEntity.ok(allUsers);
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<UserDTO> signUp(@RequestBody SignUpDTO signUpDTO){
